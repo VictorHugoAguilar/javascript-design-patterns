@@ -1,2 +1,4 @@
-# javascript-design-patterns
-Understanding design patterns in javascript
+# Javascript Design Patterns
+
+## Understanding design patterns in javascript
+
