@@ -1,3 +1,5 @@
+## Entendiendo el patrón observador (Observer Pattern) en Javascript
+
 Entendiendo el patrón observador (Observer Pattern) en Javascript
 En este post aprenderemos como implementar el patrón observer en Javascript y en que situaciones lo podemos usar.
 
