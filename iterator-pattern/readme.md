@@ -63,59 +63,49 @@ while (arrayIterator.hasNext()) {
   console.log(arrayIterator.next());
 }
 
-```
+````
 
 De esta manera queda totalmente completo el patrón iterador. Como vez es muy fácil implementar el patrón iterador y su utilidad es casi inmediata. A continuación podrás observar todo el código completo de este ejemplo:
 
-```javascript
+````javascript
 class Iterator {
-
 
       constructor(collection) {
         this.index = 0;
         this.collection = collection;
       }
+      
       first() {
         return this.collection\[0\];
       }
-
 
       next() {
         this.index += 1;
         return this.collection\[this.index\];
       }
 
-
       current() {
         return this.collection\[this.index\];
       }
-
 
       reset() {
         this.index = 0;
       }
 
-
       hasNext() {
           return (this.index + 1 < this.collection.length );
       }
-    }
+ }
 
+const arr = \[1,2,3,4,5\];
 
-    const arr = \[1,2,3,4,5\];
+const arrayIterator = new Iterator(arr);
 
+console.log(arrayIterator.first());
 
-    const arrayIterator = new Iterator(arr);
-
-
-    console.log(arrayIterator.first());
-
-
-
-
-    while (arrayIterator.hasNext()) {
+while (arrayIterator.hasNext()) {
       console.log(arrayIterator.next());
-    }
+}
     
 ````
 
