@@ -127,25 +127,22 @@ const pizza = new Pizza()
 
 ````
 
-🍕 Creación de una pizza mediante la llamada parcial de los métodos
+<b> 🍕 Creación de una pizza mediante la llamada parcial de los métodos </b>
 Una de las ventajas de trabajar con el patrón Builder es que podemos crear representaciones de los objetos como nos venga en gana. No hace falta que pasemos argumentos con valor null para los ingredientes que no queremos añadir ni nada por el estilo. Solamente llamamos a los métodos que nos interesan para crear nuestra pizza y punto ¿a qué es fácil?
 
 En esta ocasión solo vamos a querer una pizza con masa fina y 4 trozos de bacon:
 
 ````js
-
 const pizza = new Pizza()
     .setThinDough()
     .setBaconStrips(4)
-    .build()
-    
-    ````
-    
- La representación del objeto con nuestra pizza ‘al gusto’ sería el siguiente:
+    .build()    
+````
+
+La representación del objeto con nuestra pizza ‘al gusto’ sería el siguiente:
 
 
 ````js
-
 {
     tomato: false, 
     cheese: false, 
@@ -154,7 +151,6 @@ const pizza = new Pizza()
     baconStrips: 4, 
     otherIngredients: []
 }
-
 ````
 
 ¡Así de fácil es crear objetos con el patrón builder y Javascript! ¡Espero que te haya gustado este artículo, compártelo en tus redes sociales para que otros compañeros conozcan este patrón y nos leemos en el próximo! 🤟
