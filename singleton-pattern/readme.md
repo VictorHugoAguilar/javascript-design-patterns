@@ -132,4 +132,75 @@ A tal respecto, en el libro Essential JAvaScript & jQuery Design Patterns, Addy 
 
 En mi opinión, podemos prescindir de esta estructura sin miedo.
 
-  
+## Mejora del patrón singleton
+
+### Implementación
+
+Supongamos que tienes un sitio web y tienes las preferencias del usuario en base de datos. Estas preferencias son del tipo tema, zona horaria, idioma, etc, y puedes consultarlas mediante una llamada api definida así:
+
+````js
+{
+   "theme": "dark",
+   "locale": "en-US",
+   "timezone": "America/Bogota"
+}
+````
+
+Aún cuando nuestro singleton funciona (y esto lo he visto en un millón de implementaciones), cuando intentamos llamar a la config de un usuario diferente aún así obtendríamos la configuración del primer usuario solicitado.
+
+````js
+const config3 = new Config(134);
+const3.userId;    // 55
+````
+
+En primera instancia uno pensaría que no hay problema ya que solamente necesitamos consultar la config del usuario en sesión, pero personamente pienso que esto es un error de lógica en la interfaz ya que puede inducir errores en el futuro. Esta es otra de las razones polémicas por las cuales se dice que es un anti-patrón, ya que se hace muy difícil hacer pruebas unitarias de esta clase ya que mantiene el estado inicial siempre.
+
+La forma de resolver parcialmente el problema planteado es manejar varias instancias singleton dependiendo de un criterio como en este caso el userId.
+
+````js
+class Config {
+    static instance = {}
+    endpoint = 'https://somewebsite.com/config'
+
+    constructor(userId) {
+        this.userId = userId;
+
+        if (Config.instance[userId] !== undefined) {
+            return Config.instance[userId]
+        } else {
+            Config.instance[userId] = this
+        }
+    }
+
+    async getValueFor(key) {
+
+        if (this.data) {
+            // getting from cache
+            return this.data[key]
+        }
+
+        return await fetch(`${this.endpoint}/${this.userId}`)
+            .then(response => response.json())
+            .then(data => {
+                this.data = data
+                return this.data[key]
+            })       
+    }
+    
+}
+````
+
+Así, cuando intenemos llamar la segunda vez a la config de un usuario ya consultado traeremos la misma instancia inicial, para usuario no consultados traeremos una nueva y así..
+
+````js
+const config = new Config(55);    // userId 55
+await config.getValueFor('theme');    // dark
+
+const config2 = new Config(55)
+typeof config2.data;   // object (existing data, same object)
+
+const config3 = new Config(1)
+config2.data;   // undefined (new instance for userId = 1)
+````
+
+
