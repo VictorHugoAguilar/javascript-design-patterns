@@ -1,249 +1,122 @@
-## Entendiendo el patrón observador (Observer Pattern) en Javascript
+## Entendiendo el patrón iterador Iterator pattern en Javascript
 
-Entendiendo el patrón observador (Observer Pattern) en Javascript
-En este post aprenderemos como implementar el patrón observer en Javascript y en que situaciones lo podemos usar.
+En este post aprenderemos como implementar el patrón iterador en Javascript y en que situaciones lo podemos usar.
 
-El patrón observador es uno de los patrones de diseño de software más usado en Javascript. De el se extienden importantes aplicaciones que pueden ayudar a definir mejores arquitecturas en aplicaciones web, por lo que su uso y estudio es altamente recomendado. En este post aprenderemos como implementarlo en Javascript y en que situaciones lo podemos usar.
+El patrón iterador es uno de los patrones de diseño de software más usado en Javascript y también uno de los más sencillos. Es un patrón de comportamiento ya que define como se comunican objetos entre si. De él se extienden importantes aplicaciones que pueden ayudar a definir mejores arquitecturas en aplicaciones web, por lo que su uso y estudio es altamente recomendado. En este post aprenderemos como implementarlo en Javascript y en que situaciones lo podemos usar.
 
-En primer lugar el patrón observador se define como un patrón de comportamiento es decir que dentro del mundo de la programación orientada a objetos es un patrón responsable por la comunicación entre objetos.
+Empecemos por definir este patrón. Básicamente todos hemos usado arrays de esta forma [1,2,3,4] y usualmente si queremos recorrerlo nos inclinamos rápidamente por usar una estructura cíclica como "for" o “while” sin embargo esto hace que el código sea un poco mas imperativa y menos declarativa haciendo que no tengamos tanto control con cada dato unitario dentro del arreglo. Desde este punto es donde empieza a cobrar fuerza este patron iterador ya que básicamente lo que nos provee es una manera de recorrer el arreglo de una manera declarativa. El principal principio de este patrón es permitirnos recorrer colecciones de objetos de una manera que podamos decidir cuando queremos el siguiente objeto y cuando no. Para ello obligatoriamente deben existir tres métodos dentro del iterador:
 
-En segundo lugar el patrón observador también puedes encontrarlo como el patrón publicador-subscriptor o modelo-patrón y nos da una idea básica de lo que hace. En términos simples este patrón permite la notificación a objetos (subscriptores u observador) al cambio de otro objeto (publicador).
-
-¿Cómo podemos entonces implementarlo en Javascript?, empecemos implementando una clase llamada Publicador que contenga los métodos subscribe(), unsubscribe(), y notify().
-
-````js
-class Publicador {
-  constructor() {
-    this.subscriptors = \[\];
-  }
-
-
-  subscribe(subscriptor) {
-    this.subscriptors.push(subscriptor);
-  }
-
-
-  unsubscribe(subscriptor) {
-    this.subscriptors = this.subscriptors.filter(
-      (item) => item !== subscriptor
-    );
-  }
-
-
-  notify(event) {
-    this.subscriptors.forEach((item) => {
-      item.call(this, event);
-    });
-  }
-}
-````
-
-Como verás hemos manejado la lista de subscriptores con un array de Javascript como propiedad de la clase así es posible fácilmente subscribir y des-subscribir subscriptores. También la función notify itera sobre cada uno de los subscriptores y se encarga de invocarlos con el evento.
-
-Ahora imaginemos que usaremos esta definición de Publicador para un periódico que regularmente publica nuevas ediciones.
-
-````javascript
-const periodico = new Publicador();
-````
-
-Bien, pensemos un poco más acerca de los clientes. Estos van a necesitar saber cuando llegue una nueva versión del periódico. Inicialmente pensemos en que los clientes son funciones:
-
-````javascript
-function Observer(edicion) {
-  console.log("LLegó una nueva edición con el nombre de: " + edicion);
-}
-
-
-periodico.subscribe(Observer);
-periodico.subscribe(Observer);
-periodico.notify("Nueva edicion");
-````
-
-Con esta definición anterior al ejecutarlo obtenemos algo así:
-
-"LLegó una nueva edición con el nombre de: Nueva edicion" "LLegó una nueva edición con el nombre de: Nueva edicion"
-
-Si queremos ser conscientes de que cliente recibió que edición del periódico podemos retocar un poco las definiciones de la función notify y de la función observer:
-
-````javascript
-class Publicador {
-      ...
-      notify(event) {
-        let index = 0;
-        this.subscriptors.forEach( item => {
-          item.call(this, index, event);
-          index++;
-        });
-      }
-      ...
-    }
-    ...
-    function Observer(index, edicion) {
-      console.log("Al Observador #" +
-                  index + " le llegó una nueva edición con el nombre de: " +
-                  edicion);
-    }
-````
-
-De esta manera tenemos como output algo mucho mas entendible:
-
-````shell
-"Al Observador #0 le llegó una nueva edición con el nombre de: Nueva edicion";
-"Al Observador #1 le llegó una nueva edición con el nombre de: Nueva edicion";
-`````
-
-Sin embargo como un mejor acercamiento podríamos definir una clase para los clientes que nos permita crear instancias de ella y tener un control mas granular. También debemos definir un método únicamente diseñado para escuchar por nuevas decisiones del periódico.
+first() --> Retorna siempre el primer objeto de la colección.
+next() --> Retorna el siguiente objeto de la colección si existe.
+current() --> Retorna el objeto actual de la colección sobre el estamos parado.
+Empecemos entonces por definir una clase llamada iterator con estos tres métodos:
 
 ```javascript
-class Observador {
-  constructor(id) {
-    this.id = id;
-    console.log("Se ha creado el subscriptor #: " + id);
-  }
-  buzon(edicion) {
-    console.log(
-      "Subscriptor # " + this.id + " recibió una nueva edición: " + edicion
-    );
-  }
+class Iterator {
+      constructor(collection) {
+        this.index = 0;
+        this.collection = collection;
+      }
+      first() {
+        return this.collection\[0\];
+      }
+      next() {
+        this.index += 1;
+        return this.collection\[this.index\];
+      }
+      current() {
+        return this.collection\[this.index\];
+      }
+    }
+````
+
+Como ves usando ES6 hemos definido una clase que permite hacer operaciones muy básicas sobre el array, pero siempre conservando cual es el índice sobre que esta la colección en todo momento. Esto nos permitirá fácilmente movernos sobre ella. Adicionalmente aunque no es obligatorio en la implementación de este patrón. Si es altamente recomendado añadir dos métodos utilitarios mas sobre la clase iterador. Estos son:
+
+hasNext() —> Retorna true si hay mas items disponibles en la colección.
+reset() —> Permite reiniciar el indice para iterar de nuevo sobre la colección.
+Veamos entonces como sería la implementación:
+
+```javascript
+class Iterator {
+      …
+      reset() {
+        this.index = 0;
+      }
+
+
+      hasNext() {
+        return (this.collection.length > this.index +1);
+      }
+      …
 }
+````  
 
-
-const subscriptor1 = new Subscriptor(1);
-const subscriptor2 = new Subscriptor(2);
-const subscriptor3 = new Subscriptor(3);
-````
-
-De esta forma podemos tener más control sobre los subscriptores y podemos subscribirlos y des-subscribirlos de mejor manera. A continuación verás como publicar multiples ediciones de un perioido así como la habilidad suscribir y des-suscribir clientes:
-
-```js
-periodico.subscribe(subscriptor1);
-periodico.subscribe(subscriptor2);
-periodico.notify("Nueva edicion");
-periodico.subscribe(subscriptor3);
-periodico.notify("Segunda edicion");
-periodico.unsubscribe(subscriptor1);
-periodico.notify("Tercera edicion");
-periodico.subscribe(subscriptor2);
-periodico.notify("Nueva edicion");
-periodico.subscribe(subscriptor3);
-periodico.notify("Segunda edicion");
-periodico.unsubscribe(subscriptor1);
-periodico.notify("Tercera edicion");
-````
-
-Y obtenemos la siguiente salida:
-
-```shell
-"--- Primera edición ---";
-
-
-"Subscriptor # 1 recibió una nueva edición: Nueva edicion";
-
-
-"Subscriptor # 2 recibió una nueva edición: Nueva edicion";
-
-
-"--- Segunda edición ---";
-
-
-"Subscriptor # 1 recibió una nueva edición: Segunda edicion";
-
-
-"Subscriptor # 2 recibió una nueva edición: Segunda edicion";
-
-
-"Subscriptor # 3 recibió una nueva edición: Segunda edicion";
-
-
-"--- Tercera edición ---";
-
-
-"Subscriptor # 2 recibió una nueva edición: Tercera edicion";
-
-
-"Subscriptor # 3 recibió una nueva edición: Tercera edicion";
-
-`````
-
-De esta manera queda totalmente completo el patrón observer. Como vez es muy fácil implementar el patrón observer y su utilidad es casi inmediata. A continuación podrás observar todo el código completo de este ejemplo:
+Super simple!, una vez que tu clase esté definida puedes usar prácticamente cualquier tipo de array para construir tu iterador y operar sobre él. Veamos un ejemplo de su uso práctico usando un ciclo while:
 
 ````javascript
-class Publicador {
-  constructor() {
-    this.subscriptors = \[\];
-  }
+// Usando un ciclo while
+const arr = \[1,2,3,4,5\];
+const arrayIterator = new Iterator(arr);
+console.log(arrayIterator.first());
 
-
-  subscribe(subscriptor) {
-    this.subscriptors.push(subscriptor);
-  }
-
-
-  unsubscribe(subscriptor) {
-    this.subscriptors = this.subscriptors.filter(
-      (item) => item !== subscriptor
-    );
-  }
-
-
-  notify(event) {
-    this.subscriptors.forEach((item) => {
-      item.buzon.call(item, event);
-    });
-  }
+while (arrayIterator.hasNext()) {
+  console.log(arrayIterator.next());
 }
 
+```
 
-class Subscriptor {
-  constructor(id) {
-    this.id = id;
-    console.log("Se ha creado el subscriptor #: " + id);
-  }
-  buzon(edicion) {
-    console.log(
-      "Subscriptor # " + this.id + " recibió una nueva edición: " + edicion
-    );
-  }
-}
+De esta manera queda totalmente completo el patrón iterador. Como vez es muy fácil implementar el patrón iterador y su utilidad es casi inmediata. A continuación podrás observar todo el código completo de este ejemplo:
+
+```javascript
+class Iterator {
 
 
-const periodico = new Publicador();
+      constructor(collection) {
+        this.index = 0;
+        this.collection = collection;
+      }
+      first() {
+        return this.collection\[0\];
+      }
 
 
-const subscriptor1 = new Subscriptor(1);
-const subscriptor2 = new Subscriptor(2);
-const subscriptor3 = new Subscriptor(3);
+      next() {
+        this.index += 1;
+        return this.collection\[this.index\];
+      }
 
 
-console.log("--- Primera edición ---");
+      current() {
+        return this.collection\[this.index\];
+      }
 
 
-periodico.subscribe(subscriptor1);
+      reset() {
+        this.index = 0;
+      }
 
 
-periodico.subscribe(subscriptor2);
+      hasNext() {
+          return (this.index + 1 < this.collection.length );
+      }
+    }
 
 
-periodico.notify("Nueva edicion");
+    const arr = \[1,2,3,4,5\];
 
 
-console.log("--- Segunda edición ---");
+    const arrayIterator = new Iterator(arr);
 
 
-periodico.subscribe(subscriptor3);
+    console.log(arrayIterator.first());
 
 
-periodico.notify("Segunda edicion");
 
 
-console.log("--- Tercera edición ---");
+    while (arrayIterator.hasNext()) {
+      console.log(arrayIterator.next());
+    }
+    
+````
 
-
-periodico.unsubscribe(subscriptor1);
-
-
-periodico.notify("Tercera edicion");
-`````
-
-Eso es todo, espero que este post te sea de utilidad y lo puedas aplicar a algún proyecto que tengas en mente y que simplemente te haya ayudado a entender la naturaleza del patrón observer. déjame un comentario si lograste implementarlo, si quieres añadir alguna otra funcionalidad o si tienes alguna duda no dudes en dejarme un comentario en la parte de abajo, recuerda que si te gustó también puedes compartir usando los links a las redes sociales en la parte de abajo.
-
+Eso es todo, espero que este post te sea de utilidad y lo puedas aplicar a algún proyecto que tengas en mente y que simplemente te haya ayudado a entender la naturaleza del patrón iterator. déjame un comentario si lograste implementarlo, si quieres añadir alguna otra funcionalidad o si tienes alguna duda no dudes en dejarme un comentario en la parte de abajo, recuerda que si te gustó también puedes compartir usando los links a las redes sociales en la parte de abajo.
