@@ -96,7 +96,7 @@ Después, hemos creado un método para seleccionar si queremos queso, otro para 
 
 Y al final utilizaremos nuestro método build que construirá nuestra nueva instancia de Pizza.
 
-🍕 Creación de una pizza mediante la llamada de todos los métodos
+<p><b>🍕 Creación de una pizza mediante la llamada de todos los métodos</b></p>
 Ahora sí quisiéramos crear una nueva instancia de Pizza a partir del patrón Builder, lo haríamos de la siguiente manera, de manera que estaríamos indicando uno a uno de los ingredientes que se compone.
 
 ````js
@@ -127,7 +127,7 @@ const pizza = new Pizza()
 
 ````
 
-<b> 🍕 Creación de una pizza mediante la llamada parcial de los métodos </b>
+<p><b> 🍕 Creación de una pizza mediante la llamada parcial de los métodos </b></p>
 Una de las ventajas de trabajar con el patrón Builder es que podemos crear representaciones de los objetos como nos venga en gana. No hace falta que pasemos argumentos con valor null para los ingredientes que no queremos añadir ni nada por el estilo. Solamente llamamos a los métodos que nos interesan para crear nuestra pizza y punto ¿a qué es fácil?
 
 En esta ocasión solo vamos a querer una pizza con masa fina y 4 trozos de bacon:
