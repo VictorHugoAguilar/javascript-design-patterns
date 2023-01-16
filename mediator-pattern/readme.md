@@ -12,13 +12,13 @@
 
 Digamos que tiene un cuadro de diálogo para crear y editar perfiles de clientes. Consiste en varios controles de formulario, como campos de texto, casillas de verificación, botones, etc.
 
-![https://refactoring.guru/images/patterns/diagrams/mediator/problem1-en.png?id=86f99055b3e60bb8834dcc7222922bdf](https://refactoring.guru/images/patterns/diagrams/mediator/problem1-en.png?id=86f99055b3e60bb8834dcc7222922bdf)
+![Untitled](Mediator%20Pattern%204eadea2ded3a48fa89d3bccab4040b09/Untitled%201.png)
 
 *Las relaciones entre los elementos de la interfaz de usuario pueden volverse caóticas a medida que evoluciona la aplicación.*
 
 Algunos de los elementos del formulario pueden interactuar con otros. Por ejemplo, seleccionar la casilla de verificación "Tengo un perro" puede revelar un campo de texto oculto para ingresar el nombre del perro. Otro ejemplo es el botón de enviar que tiene que validar los valores de todos los campos antes de guardar los datos.
 
-![https://refactoring.guru/images/patterns/diagrams/mediator/problem2.png?id=072c51eee4dd90c0972866440c87c1c3](https://refactoring.guru/images/patterns/diagrams/mediator/problem2.png?id=072c51eee4dd90c0972866440c87c1c3)
+![Untitled](Mediator%20Pattern%204eadea2ded3a48fa89d3bccab4040b09/Untitled%202.png)
 
 *Los elementos pueden tener muchas relaciones con otros elementos. Por lo tanto, los cambios en algunos elementos pueden afectar a los demás.*
 
@@ -30,7 +30,7 @@ El patrón Mediador sugiere que debe cesar toda comunicación directa entre los 
 
 En nuestro ejemplo con el formulario de edición de perfil, la propia clase de diálogo puede actuar como mediador. Lo más probable es que la clase de diálogo ya conozca todos sus subelementos, por lo que ni siquiera necesitará introducir nuevas dependencias en esta clase.
 
-![https://refactoring.guru/images/patterns/diagrams/mediator/solution1-en.png?id=dd991a5b7830de8d43f82b084e021713](https://refactoring.guru/images/patterns/diagrams/mediator/solution1-en.png?id=dd991a5b7830de8d43f82b084e021713)
+![Untitled](Mediator%20Pattern%204eadea2ded3a48fa89d3bccab4040b09/Untitled%203.png)
 
 *Los elementos de la interfaz de usuario deben comunicarse indirectamente, a través del objeto mediador.*
 
@@ -42,7 +42,7 @@ De esta forma, el patrón Mediator le permite encapsular una red compleja de rel
 
 ## **Analogía del mundo real**
 
-![https://refactoring.guru/images/patterns/diagrams/mediator/live-example.png?id=aa1de3cb7b63aa623e63578a1e43399a](https://refactoring.guru/images/patterns/diagrams/mediator/live-example.png?id=aa1de3cb7b63aa623e63578a1e43399a)
+![Untitled](Mediator%20Pattern%204eadea2ded3a48fa89d3bccab4040b09/Untitled%204.png)
 
 *Los pilotos de aviones no se hablan directamente cuando deciden quién será el siguiente en aterrizar su avión. Toda la comunicación pasa por la torre de control.*
 
@@ -52,7 +52,7 @@ La torre no necesita controlar todo el vuelo. Solo existe para hacer cumplir la
 
 ## **Estructura**
 
-![https://refactoring.guru/images/patterns/diagrams/mediator/structure.png?id=1f2accc7820ecfe9665b6d30cbc0bc61](https://refactoring.guru/images/patterns/diagrams/mediator/structure.png?id=1f2accc7820ecfe9665b6d30cbc0bc61)
+![Untitled](Mediator%20Pattern%204eadea2ded3a48fa89d3bccab4040b09/Untitled%205.png)
 
 1. **Los componentes** son varias clases que contienen alguna lógica empresarial. Cada componente tiene una referencia a un mediador, declarado con el tipo de la interfaz del mediador. El componente no reconoce la clase real del mediador, por lo que puede reutilizar el componente en otros programas vinculándolo a un mediador diferente.
 2. La interfaz **Mediator** declara métodos de comunicación con los componentes, que normalmente incluyen un único método de notificación. Los componentes pueden pasar cualquier contexto como argumentos de este método, incluidos sus propios objetos, pero solo de tal manera que no se produzca ningún acoplamiento entre un componente receptor y la clase del remitente.
@@ -66,7 +66,7 @@ La torre no necesita controlar todo el vuelo. Solo existe para hacer cumplir la
 
 En este ejemplo, el patrón **Mediator** lo ayuda a eliminar las dependencias mutuas entre varias clases de IU: botones, casillas de verificación y etiquetas de texto.
 
-![https://refactoring.guru/images/patterns/diagrams/mediator/example.png?id=3151c153533e816e226be0ef977211e8](https://refactoring.guru/images/patterns/diagrams/mediator/example.png?id=3151c153533e816e226be0ef977211e8)
+![Untitled](Mediator%20Pattern%204eadea2ded3a48fa89d3bccab4040b09/Untitled%206.png)
 
 *Estructura de las clases de diálogo de la interfaz de usuario.*
 
