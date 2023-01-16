@@ -222,3 +222,5 @@ El código que utiliza el método fábrica (a menudo denominado código *client
     Client: I'm not aware of the creator's class, but it still works.
     Creator: The same creator's code has just worked with {Result of the ConcreteProduct2}
     ```
+
+@author Victor
