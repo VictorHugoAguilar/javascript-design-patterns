@@ -1,6 +1,4 @@
-# Javascript Design Patterns
-
-## Understanding design patterns in javascript
+# Javascript Design Patterns (Understanding design patterns in javascript)
 
 ## ¿Qué es un patrón de diseño?
 Los patrones de diseño son soluciones habituales a problemas que ocurren con frecuencia en el diseño de software. Son como planos prefabricados que se pueden personalizar para resolver un problema de diseño recurrente en tu código.
