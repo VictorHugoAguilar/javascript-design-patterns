@@ -7,7 +7,7 @@ La invención de los principios SOLID comenzó a finales de los años 80. Robert
 - **S** representa el principio de Responsabilidad Única [(SRP)](https://github.com/VictorHugoAguilar/javascript-design-patterns/blob/main/solid/SRP.md)	
 - **O** representa el principio Abierto Cerrado [(OCP)](https://github.com/VictorHugoAguilar/javascript-design-patterns/blob/main/solid/OCP.md)
 - **L** representa el principio de sustitución de Liskov [(Liskov)](https://github.com/VictorHugoAguilar/javascript-design-patterns/blob/main/solid/LISKOV.md)
-- **I** representa el principio de segregación de interfaz
+- **I** representa el principio de segregación de interfaz [(ISP)](https://github.com/VictorHugoAguilar/javascript-design-patterns/blob/main/solid/ISP.md)
 - **D** representa el principio de inversión de dependencia
 
 Los principios SOLID son útiles cuando se construyen módulos individuales o arquitecturas más grandes. Entonces, vamos a explorar cada principio junto con ejemplos en JavaScript.
