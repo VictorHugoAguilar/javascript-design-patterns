@@ -1,4 +1,4 @@
-# El principio abierto-cerrado
+# El principio abierto-cerrado OCP
 
 Bertrand Meyer hizo famoso este principio en la década de 1980, que apareció en su libro Object-Oriented Software Construction³. Los sistemas de software se diseñen para permitir que se cambie el comportamiento de esos sistemas agregando un nuevo código, en lugar de cambiar el código existente.
 
