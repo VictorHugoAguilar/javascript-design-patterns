@@ -1,4 +1,4 @@
-# El principio de responsabilidad única
+# El principio de responsabilidad única SRP
 
 Este principio fue descrito en el trabajo de Tom DeMarco¹ y Meilir Page-Jones². Lo llamaron cohesión. Definieron la cohesión como la relación funcional de los elementos de un módulo.
 
