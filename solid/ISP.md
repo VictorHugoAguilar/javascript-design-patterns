@@ -1,4 +1,4 @@
-# El principio de segregación de la interfaz
+# El principio de segregación de la interfaz ISP
 
 Este principio aconseja a los diseñadores de software que eviten depender de cosas que no usan.
 
