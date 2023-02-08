@@ -11,3 +11,5 @@ La invención de los principios SOLID comenzó a finales de los años 80. Robert
 - **D** representa el principio de inversión de dependencia [(DIP)](https://github.com/VictorHugoAguilar/javascript-design-patterns/blob/main/solid/DIP.md)
 
 Los principios SOLID son útiles cuando se construyen módulos individuales o arquitecturas más grandes. Entonces, vamos a explorar cada principio junto con ejemplos en JavaScript.
+
+## Otra vision de S.O.L.I.D.
