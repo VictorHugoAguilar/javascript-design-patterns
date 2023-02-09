@@ -143,59 +143,8 @@ class CoderFilter {
 
 El problema `CoderFilter`es que si queremos filtrar por alguna otra propiedad nueva tenemos que cambiar `CodeFilter`el código. Resolvamos este problema creando una `filterByProp`función.
 
+
 ```tsx
 const filterByProp = (array, propName, value) =>
   array.filter(element => element[propName] === value)
 ```
-class PersistanceManager {
-  saveData(db, data) {
-    if (db instanceof FileSystem) {
-      db.writeToFile(data)
-    }
-
-    if (db instanceof ExternalDB) {
-      db.writeToDatabase(data)
-    }
-
-    if (db instanceof LocalPersistance) {
-      db.push(data)
-    }
-  }
-}
-```
-
-En este caso, un módulo de alto nivel `PersistanceManager`depende de los módulos de bajo nivel, que son `FileSystem`, `ExternalDB`y `LocalPersistance`.
-
-Para evitar el problema en este caso simple, probablemente deberíamos hacer algo como esto:
-
-```tsx
-class FileSystem {
-  save(data) {
-    // Implementation
-  }
-}
-
-class ExternalDB {
-  save(data) {
-    // Implementation
-  }
-}
-
-class LocalPersistance {
-  save(data) {
-    // Implementation
-  }
-}
-
-class PersistanceManager {
-  saveData(db, data) {
-    db.save(data)
-  }
-}
-```
-
-Por supuesto, este es un ejemplo demasiado simplificado, pero entiendes el punto.
-
-## Conclusión
-
-El valor de los principios SOLID no es obvio. Pero si te preguntas "¿Estoy violando los principios SOLID" cuando diseñas tu arquitectura, te prometo que la calidad y la escalabilidad de tu código serán mucho mejores.
